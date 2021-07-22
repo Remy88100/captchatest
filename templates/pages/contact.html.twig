@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% form_theme formContact 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-sm-6 ">
+            <h5>Coordonnées</h5>
+            <br>
+          
+        
+        </div>
+        <div class="col-md-4 col-sm-6"><h5>Localisation</h5>
+           
+        </div>
+        <div class="col-md-4 col-sm-12">
+            {% for message in app.flashes('success') %} 
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endfor %}
+            <h5>Formulaire de Contact</h5>
+            {{ form_start(formContact)}}
+            {{ form_row(formContact.name, {'attr':{'placeholder': 'Votre nom'}}) }}
+            {{ form_row(formContact.first_name, {'attr':{'placeholder': 'Votre prénom'}}) }}
+            {{ form_row(formContact.email, {'attr':{'placeholder': 'Votre Email'}}) }}
+            {{ form_row(formContact.phone, {'attr':{'placeholder': 'Votre numéro de téléphone'}}) }}
+            {{ form_row(formContact.object, {'attr':{'placeholder': 'Objet'}}) }}
+            {{ form_row(formContact.message, {'attr':{'placeholder': 'Message' ,'rows' : 8}}) }}
+            {% block captcha_widget %}
+{% spaceless %}
+    <img src="{{ captcha_code }}" title="captcha" width="{{ captcha_width }}" height="{{ captcha_height }}" />
+    {{ form_widget(formContact.captcha) }}
+{% endspaceless %}
+{% endblock %}
+
+<button type="submit" class="btn btn-success">Envoyer</button>
+
+            
+            {{ form_end(formContact) }}
+        </div>
+    </div>  
+       
+
+
+        
+
+{% endblock %}
